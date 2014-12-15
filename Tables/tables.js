@@ -1,5 +1,7 @@
 ﻿
 var App = function () {
+    var geoc;
+
     var data = [
         {
             caseNo: '1117786',
@@ -83,22 +85,56 @@ var App = function () {
 
     var tableRowClicked = function (tableRow) {
         // todo: show a nice popup that displays the data
-        console.log('row clicked ' + $(tableRow).data().caseNo);    
+        console.log('row clicked ' + $(tableRow).data().caseNo);
     }
 
+    // initialize view controls
+    var initializeViewControls = function () {
+        $('#gridView').show();
+        $('#mapView').hide();
+        $('#viewGrid').click(setViewOption);
+        $('#viewMap').click(setViewOption);
+    }
+
+    // Handle clicks on view radio buttons
+    var setViewOption = function () {
+        if (this.value == 'viewMap') {
+            $('#gridView').hide();
+            $('#mapView').show();
+            if (geoc == null) {
+                initializeMap();
+            }
+        }
+        else if (this.value == 'viewGrid') {
+            $('#mapView').hide();
+            $('#gridView').show();
+        }
+    }
+
+    // configure the table
     var configureTable = function () {
+
+        // click handlers for table rows
         $('#myTable > tbody > tr').click(function () {
             tableRowClicked(this);
         });
+
+        // apply sorting behavior using tablesorter plugin
         $('#myTable').tablesorter();
     }
 
+    // initialize the map
     var initializeMap = function () {
 
-        var geoc = new google.maps.Geocoder();
+        geoc = new google.maps.Geocoder();
+
+        // pick a place to center the map on
         var req = { address: '400 Poole Rd, Raeford NC' };
         geoc.geocode(req, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
+
+                // if the geocode succeeds for the center point
+                // then create the map object
                 var mapProp = {
                     center: results[0].geometry.location,
                     zoom: 7,
@@ -106,34 +142,57 @@ var App = function () {
                 };
                 var map = new google.maps.Map($('#map')[0], mapProp);
 
+                // for each address in the data set geocode the address
+                // and place it on the map
                 $.each(data, function (i, val) {
+
                     geoc.geocode({ address: val.propertyAddress + ", " + val.propertyCity + " " + val.propertyState },
                     function (results, status) {
+
+                        // if the geocode of the address succeeds place a marker 
+                        // on the map
                         if (status == google.maps.GeocoderStatus.OK) {
+
+                            var calcContent = "<div style='height:90px'>"
+                                + val.propertyAddress + "<br>"
+                                + val.propertyCity + ", " + val.propertyState + "<br><br>"
+                                + val.bidAmount
+                                + "</div>"
+                            var info = new google.maps.InfoWindow({
+                                content: calcContent
+                            });
+
                             var marker = new google.maps.Marker({
                                 position: results[0].geometry.location,
-                                map: map,
                                 title: val.propertyAddress
                             });
+
+                            marker.info = info;
+
+                            google.maps.event.addListener(marker, 'click', function () {
+                                this.info.open(map, this);
+                            });
+
+                            marker.setMap(map);
                         }
                     });
                 });
             }
         });
+    }
 
-     }
 
     this.start = function () {
         createHeaders(columns);
         addRows(data);
         configureTable();
-        initializeMap();
+        initializeViewControls();
     }
-    }
+}
 
 
 
-    $(document).ready(function () {
-        var app = new App();
-        app.start();
-    });
+$(document).ready(function () {
+    var app = new App();
+    app.start();
+});

@@ -12,14 +12,40 @@
     <link rel="stylesheet" href="../../lib/tablesorter-2.0.5/themes/blue/style.css" />
 </head>
 <body>
-    <h2>Hutchens Law Firm</h2>
-    <h3>North Carolina Foreclosures</h3>
-    <table id="myTable" class="tablesorter">
-        <thead>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <div id="map"  style="width:500px;height:380px;"></div>
+    <div class="container">
+        <div class="row">
+            <h2>Hutchens Law Firm</h2>
+            <h3>North Carolina Foreclosures</h3>
+        </div>
+        <div class="row">
+            <form>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="viewOpts" id="viewGrid" value="viewGrid" checked="checked" />
+                        View list of properties
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="viewOpts" id="viewMap" value="viewMap" />
+                        View properties on map
+                    </label>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div id="gridView">
+                <table id="myTable" class="tablesorter">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div id="mapView">
+                <div id="map" style="width: 500px; height: 380px;"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
