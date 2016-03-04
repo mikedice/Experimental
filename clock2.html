@@ -35,6 +35,7 @@
             else {
                 amPm = "AM";
             }
+
             if (minutes < 10) {
                 mins = "0" + minutes;
             }
@@ -52,7 +53,7 @@
 
 
 
-            clock.innerHTML = tm.getHours() + ":" + mins + ":" + secs + " " + amPm;
+            clock.innerHTML = hours + ":" + mins + ":" + secs + " " + amPm;
             cal.innerHTML = tm.getMonth() + "/" + tm.getDate() + "/" + tm.getFullYear();
         }
 
