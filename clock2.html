@@ -8,9 +8,15 @@
             color:white;
         }
     </style>
-
+    <script type="text/javascript">
+        function setupClock() {
+            var clock = document.getElementById("clock");
+            clock.innerHTML = "Clock initialized";
+        }
+    </script>
 </head>
-<body>
+<body onload="setupClock()">
+
     <div id="clock">Hello Clock</div>
 </body>
 
