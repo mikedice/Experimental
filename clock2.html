@@ -22,6 +22,11 @@
             var clock = document.getElementById("clock");
             var calender = document.getElementById("cal");
             var hours = tm.getHours();
+            var minutes = tm.getMinutes();
+            var seconds = tm.getSeconds();
+            var mins = "";
+            var secs = "";
+
             var amPm = "AM";
             if (hours > 12) {
                 hours = hours - 12;
@@ -30,8 +35,24 @@
             else {
                 amPm = "AM";
             }
+            if (minutes < 10) {
+                mins = "0" + minutes;
+            }
+            else {
+                mins = minutes;
+            }
 
-            clock.innerHTML = tm.getHours() + ":" + tm.getMinutes() + ":" + tm.getSeconds() + " " + amPm;
+            if (seconds < 10) {
+                secs = "0" + seconds;
+            }
+            else {
+                secs = seconds;
+            }
+
+
+
+
+            clock.innerHTML = tm.getHours() + ":" + mins + ":" + secs + " " + amPm;
             cal.innerHTML = tm.getMonth() + "/" + tm.getDate() + "/" + tm.getFullYear();
         }
 
