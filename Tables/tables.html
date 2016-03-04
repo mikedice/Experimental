@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Tables</title>
+    <script type="text/javascript" src="../../lib/jquery-1.11.1/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="../../lib/tablesorter-2.0.5/jquery.tablesorter.js"></script>
+    <script type="text/javascript" src="tables.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <link rel="stylesheet" href="../../lib/bootstrap-3.3.1/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../lib/tablesorter-2.0.5/themes/blue/style.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h2>Hutchens Law Firm</h2>
+            <h3>North Carolina Foreclosures</h3>
+        </div>
+        <div class="row">
+            <form>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="viewOpts" id="viewGrid" value="viewGrid" checked="checked" />
+                        View list of properties
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="viewOpts" id="viewMap" value="viewMap" />
+                        View properties on map
+                    </label>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div id="gridView">
+                <table id="myTable" class="tablesorter">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div id="mapView">
+                <div id="map" style="width: 500px; height: 380px;"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
