@@ -3,21 +3,37 @@
     <style type="text/css">
         body{
             background-color:black;
+            padding-top:300px;
         }
-        #clock{
-            color:white;
+        .time{
+            text-align: center;
+            font-size: 160px;
+            color:lawngreen;
+        }
+        .date{
+            text-align: center;
+            font-size: 100px;
+            color:lawngreen;
         }
     </style>
     <script type="text/javascript">
+        function updateClock() {
+            var tm = new Date();
+            var clock = document.getElementById("clock");
+            var calender = document.getElementById("cal");
+            clock.innerHTML = tm.toLocaleTimeString();
+            cal.innerHTML = tm.toLocaleDateString();
+        }
+
         function setupClock() {
             var clock = document.getElementById("clock");
-            clock.innerHTML = "Clock initialized";
+            setInterval(updateClock, 250);
         }
     </script>
 </head>
 <body onload="setupClock()">
-
-    <div id="clock">Hello Clock</div>
+    <div class="time" id="clock"></div>
+    <div class="date" id="cal"></div>
 </body>
 
 </html>
