@@ -21,8 +21,18 @@
             var tm = new Date();
             var clock = document.getElementById("clock");
             var calender = document.getElementById("cal");
-            clock.innerHTML = tm.toLocaleTimeString();
-            cal.innerHTML = tm.toLocaleDateString();
+            var hours = tm.getHours();
+            var amPm = "AM";
+            if (hours > 12) {
+                hours = hours - 12;
+                amPm = "PM"
+            }
+            else {
+                amPm = "AM";
+            }
+
+            clock.innerHTML = tm.getHours() + ":" + tm.getMinutes() + ":" + tm.getSeconds() + " " + amPm;
+            cal.innerHTML = tm.getMonth() + "/" + tm.getDate() + "/" + tm.getFullYear();
         }
 
         function setupClock() {
