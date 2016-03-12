@@ -32,6 +32,11 @@
         .stats {
             text-align: center;
         }
+        .ipAddrString{
+            color: teal;
+            font-size: 16px;
+            margin-top: 40px;
+        }
     </style>
     <script type="text/javascript">
         var showing = 0; // 0=clock, 1=stats
@@ -113,13 +118,17 @@
             }
 
             // Create new script element and load a script into it
-            js = document.createElement("script");
-            js.src = "http://localhost/address.js?timestamp=" + new Date().getTime();
-            js.id = "ipAddrScript";
-            js.onload = function () {
-                document.getElementById("ipAddrOut").innerHtml = "ssh pi@" + csLocalIpAddress + " PWD on \\mikedice9\team\pi.txt";
+            var newJs = document.createElement("script");
+            newJs.src = "http://localhost:8652/address.js?timestamp=" + new Date().getTime();
+            newJs.id = "ipAddrScript";
+            newJs.type = "text/javascript";
+            newJs.onload = function () {
+                window.setTimeout(function () {
+                    document.getElementById("ipAddrOut").innerHTML = "ssh pi@" + window.ceLcoalIpAddress + " PWD on \\\\mikedice9\\team\\pi.txt";
+                }, 5000)
+                
             }
-            document.body.appendChild(js);
+            document.body.appendChild(newJs);
 
         }
     </script>
@@ -132,7 +141,7 @@
     <div style="display: none" class="stats" id=stats>
         <img id="stats-image" src="https://kbdevstorage1.blob.core.windows.net/stats/team-burndown.PNG" />
     </div>
-    <div id="ipAddrOut"></div>
+    <div class="ipAddrString" id="ipAddrOut"></div>
 </body>
 
 </html>
