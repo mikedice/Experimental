@@ -119,7 +119,8 @@
 
             // Create new script element and load a script into it
             var newJs = document.createElement("script");
-            newJs.src = "http://localhost:8652/address.js?timestamp=" + new Date().getTime();
+            // newJs.src = "http://localhost:8652/address.js?timestamp=" + new Date().getTime();
+            newJs.src = "http://localhost/address.js?timestamp=" + new Date().getTime();
             newJs.id = "ipAddrScript";
             newJs.type = "text/javascript";
             newJs.onload = function () {
