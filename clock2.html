@@ -1,22 +1,41 @@
 <html>
 <head>
+    <title>MSEG CE team display</title>
     <style type="text/css">
-        body{
-            background-color:black;
-            padding-top:300px;
+        body {
+            background-color: black;
+            padding-top: 300px;
         }
-        .time{
+
+        .time {
             text-align: center;
             font-size: 160px;
-            color:lawngreen;
+            color: lawngreen;
         }
-        .date{
+
+        .date {
             text-align: center;
             font-size: 100px;
-            color:lawngreen;
+            color: lawngreen;
+        }
+
+        .smallTime {
+            font-size: 80px;
+            color: lawngreen;
+        }
+
+        .smallDate {
+            font-size: 40px;
+            color: lawngreen;
+        }
+
+        .stats {
+            text-align: center;
         }
     </style>
     <script type="text/javascript">
+        var showing = 0; // 0=clock, 1=stats
+
         function updateClock() {
             var tm = new Date();
             var clock = document.getElementById("clock");
@@ -35,7 +54,6 @@
             else {
                 amPm = "AM";
             }
-
             if (minutes < 10) {
                 mins = "0" + minutes;
             }
@@ -50,22 +68,49 @@
                 secs = seconds;
             }
 
-
-
-
+            var monthVal = tm.getMonth() + 1; // month are 0-11 in the DateTime object
             clock.innerHTML = hours + ":" + mins + ":" + secs + " " + amPm;
-            cal.innerHTML = tm.getMonth() + "/" + tm.getDate() + "/" + tm.getFullYear();
+            cal.innerHTML = monthVal + "/" + tm.getDate() + "/" + tm.getFullYear();
         }
 
+        function switchDisplay() {
+            var clock = document.getElementsByClassName('timeDate');
+            var stats = document.getElementsByClassName('stats');
+
+
+            if (showing == 0) {
+                showing = 1;
+                clock[0].style.display = 'none';
+                stats[0].style.display = 'block';
+                refreshStats();
+            }
+            else {
+                showing = 0;
+                clock[0].style.display = 'block';
+                stats[0].style.display = 'none';
+            }
+        }
+        function refreshStats() {
+            var statsImage = document.getElementById("stats-image");
+            statsImage.src = "https://kbdevstorage1.blob.core.windows.net/stats/team-burndown.PNG" + "?timestamp=" + new Date().getTime();
+        }
         function setupClock() {
             var clock = document.getElementById("clock");
             setInterval(updateClock, 250);
+
+            // switch display every minute
+            setInterval(switchDisplay, 60 * 1000);
         }
     </script>
 </head>
 <body onload="setupClock()">
-    <div class="time" id="clock"></div>
-    <div class="date" id="cal"></div>
+    <div class="timeDate">
+        <div class="time" id="clock"></div>
+        <div class="date" id="cal"></div>
+    </div>
+    <div style="display: none" class="stats" id=stats>
+        <img id="stats-image" src="https://kbdevstorage1.blob.core.windows.net/stats/team-burndown.PNG" />
+    </div>
 </body>
 
 </html>
