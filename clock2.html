@@ -15,8 +15,21 @@
             font-size: 100px;
             color:lawngreen;
         }
+        .smallTime{
+            font-size: 80px;
+            color: lawngreen;
+	}
+        .smallDate{
+            font-size: 40px;
+            color: lawngreen;
+        }
+        .stats{
+            text-align: center;
+        }
     </style>
     <script type="text/javascript">
+        var showing = 0; // 0=clock, 1=stats
+
         function updateClock() {
             var tm = new Date();
             var clock = document.getElementById("clock");
@@ -52,19 +65,45 @@
 
 
 
-            clock.innerHTML = tm.getHours() + ":" + mins + ":" + secs + " " + amPm;
+            clock.innerHTML = hours + ":" + mins + ":" + secs + " " + amPm;
             cal.innerHTML = tm.getMonth() + "/" + tm.getDate() + "/" + tm.getFullYear();
         }
+
+        function switchDisplay(){
+               var clock = document.getElementsByClassName('timeDate');
+               var stats = document.getElementsByClassName('stats');
+
+
+            if (showing == 0){
+               showing = 1;
+               clock[0].style.display='none';
+               stats[0].style.display='block';
+               
+            }
+            else{
+               showing=0;
+               clock[0].style.display='block';
+               stats[0].style.display='none';
+            }	
+	}
 
         function setupClock() {
             var clock = document.getElementById("clock");
             setInterval(updateClock, 250);
+
+            // switch display every minute
+            setInterval(switchDisplay, 60*1000);
         }
     </script>
 </head>
 <body onload="setupClock()">
-    <div class="time" id="clock"></div>
-    <div class="date" id="cal"></div>
+    <div class="timeDate">
+      <div class="time" id="clock"></div>  
+      <div class="date" id="cal"></div>
+    </div>
+    <div style="display: none" class="stats" id=stats>
+       <img src="https://kbdevstorage1.blob.core.windows.net/stats/team-burndown.PNG" />
+    </div>
 </body>
 
 </html>
