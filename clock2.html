@@ -89,6 +89,8 @@
                 clock[0].style.display = 'block';
                 stats[0].style.display = 'none';
             }
+
+            loadScript();
         }
         function refreshStats() {
             var statsImage = document.getElementById("stats-image");
@@ -102,7 +104,7 @@
             setInterval(switchDisplay, 60 * 1000);
         }
 
-        function loadScript(location) {
+        function loadScript() {
             // Check for existing script element and delete it if it exists
             var js = document.getElementById("ipAddrScript");
             if (js !== null) {
@@ -114,7 +116,7 @@
             js.src = "http://localhost/address.js?timestamp=" + new Date().getTime();
             js.id = "ipAddrScript";
             js.onload = function () {
-                document.getElementById.innerHtml = "ssh pi@" + csLocalIpAddress + " PWD on \\mikedice9\team\pi.txt";
+                document.getElementById("ipAddrOut").innerHtml = "ssh pi@" + csLocalIpAddress + " PWD on \\mikedice9\team\pi.txt";
             }
             document.body.appendChild(js);
 
